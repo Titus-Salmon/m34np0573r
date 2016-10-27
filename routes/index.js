@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+// var jwt = require('express-jwt');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -9,6 +10,8 @@ router.get('/', function(req, res, next) {
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
+
+// var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
 /* GET posts */
 router.get('/posts', function(req, res, next) {
@@ -92,7 +95,7 @@ router.post('/posts/:post/comments', function(req, res, next) {
 });
 
 /* route for incrementing & saving upvotes for comments*/
-router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
+router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
   req.comment.upvote(function(err, comment){
     if (err) { return next(err); }
 
